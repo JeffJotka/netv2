@@ -1,0 +1,20 @@
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewData["Title"] = "Home Page";
+}
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="text-center">
+        <h1 class="display-4">Witamy na stronie naszej przychodni</h1>
+        <p>Aby wejść w swoje wizytky klinkin Wizyty</p>
+        <p> Witaj @User.Identity.Name</p>
+    </div>
+}
+else
+{
+<div class="text-center">
+    <h1 class="display-4">Witamy na stronie naszej przychodni</h1>
+    <p>Zaloguj się by zobaczyć swoje wizyty</p>
+</div>
+}

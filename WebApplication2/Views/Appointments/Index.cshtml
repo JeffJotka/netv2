@@ -1,0 +1,114 @@
+﻿@model IEnumerable<WebApplication2.Models.Appointment>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h1>Wizyty</h1>
+
+@if (User.IsInRole("Admin") || User.IsInRole("Recepcja"))
+{
+    <p>
+        <a asp-action="Create">Zarejestruj Pacjenta</a>
+
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Lekarz
+            </th>
+            <th>
+                Gabinet
+            </th>
+            <th>
+                Pacjent
+            </th>
+            <th>
+                Początek wizyty
+            </th>
+            <th>
+                Przywidywany koniec wizyty
+            </th>
+
+            <th>
+                Rodzaj wizyty
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            @if (User.IsInRole("Admin") || User.IsInRole("Recepcja"))
+            {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Doctor.ApplicationUser.UserN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Room.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Patient.ApplicationUser.UserN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Reservation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReservationEnd)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type.Type)
+                    </td>
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+
+                    </td>
+                </tr>
+            }
+        }
+
+        @foreach (var item in Model)
+        {
+            @if (User.IsInRole("Pacjent") || User.IsInRole("Doctor"))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Doctor.ApplicationUser.UserN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Room.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Patient.ApplicationUser.UserN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Reservation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReservationEnd)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type.Type)
+                    </td>
+
+                    <td>
+
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>

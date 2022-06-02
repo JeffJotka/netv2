@@ -1,0 +1,64 @@
+﻿@model WebApplication2.Models.Appointment
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Appointment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DoctorId" class="control-label">Lekarz</label>
+                <select asp-for="DoctorId" class="form-control" asp-items="ViewBag.Lekarz"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="RoomId" class="control-label">Gabinet</label>
+                <select asp-for="RoomId" class="form-control" asp-items="ViewBag.Pokój"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientId" class="control-label">Pacjent</label>
+                <select asp-for="PatientId" class="form-control" asp-items="ViewBag.Pacjent"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reservation" class="control-label">Data Wizyty</label>
+                <input asp-for="Reservation" class="form-control" />
+                <span asp-validation-for="Reservation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReservationEnd" class="control-label">Przewidywany czas zakończenia wizyty</label>
+                <input asp-for="ReservationEnd" class="form-control" />
+                <span asp-validation-for="ReservationEnd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AppointmentTypeId" class="control-label">Rodzaj wizyty</label>
+                <select asp-for="AppointmentTypeId" class="form-control" asp-items="ViewBag.Rodzajwizyty"></select>
+            </div>
+            @*<div class="form-group">
+            <label asp-for="UserViewModelId" class="control-label"></label>
+            <input asp-for="UserViewModelId" class="form-control" />
+            <span asp-validation-for="UserViewModelId" class="text-danger"></span>
+        </div>*@
+            @*<div class="form-group">
+            <label asp-for="ApplicationUserId" class="control-label"></label>
+            <select asp-for="ApplicationUserId" class ="form-control" asp-items="ViewBag.ApplicationUserId"></select>
+        </div>*@
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

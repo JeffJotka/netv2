@@ -1,0 +1,84 @@
+﻿@model WebApplication2.Models.Patient
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Patient</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Birthday)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Birthday)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RegDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RegDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ApplicationUser)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ApplicationUser.UserN)
+        </dd>
+    </dl>
+    <h1>Odbyte wizyty:</h1>
+    <table class="table">
+        <thead>
+            <tr><th>Doktor</th><th>Gabient</th><th>Data</th><th>Data zakończenia</th></tr>
+        </thead>
+        <tbody>
+            @{
+                int i = Int32.Parse(ViewData["liczba"].ToString());
+
+                for (int j = 1; j <= i; j++)
+                {
+                    <tr>
+                        <td>
+                            @ViewData[j + "-Doktor"]
+                        </td>
+                        <td>
+                            @ViewData[j + "-Room"]
+                        </td>
+                        <td>
+                            @ViewData[j + "-Data"]
+                        </td>
+                        <td>
+                            @ViewData[j + "-DataZakończenia"]
+                        </td>
+                    </tr>
+                }
+            }
+            </tbody>
+        </table>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

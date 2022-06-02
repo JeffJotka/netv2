@@ -1,0 +1,46 @@
+﻿@model IEnumerable<WebApplication2.Models.MedicalHistory>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+@if (User.IsInRole("Admin") || User.IsInRole("Recepcja")  || User.IsInRole("Doctor"))
+{
+    <p>
+        <a asp-action="Create">Dodaj nową obserwacje</a>
+
+    </p>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Pacjent
+            </th>
+            <th>
+                Opis
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Patient.ApplicationUser.UserN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

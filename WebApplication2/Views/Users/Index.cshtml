@@ -1,0 +1,70 @@
+﻿@model IEnumerable<UserViewModel>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<h1>Użytkownicy w systemie</h1>
+
+<a asp-action="Add" class="btn btn-primary">Dodaj użytkownika</a>
+
+<div id="alert" class="alert alert-success alert-dismissible fade show mt-4 d-none" role="alert">
+    User deleted.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<table class="table table-striped mt-4">
+    <thead>
+        <tr class="bg-primary text-white">
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Nazwa użytkownika</th>
+            <th>PESEL</th>
+            <th>Email</th>
+            <th>Opcje</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            if (User.IsInRole("Admin"))
+            {
+            <tr>
+                <td>@user.FirstName</td>
+                <td>@user.LastName</td>
+                <td>@user.UserName</td>
+                <td>@user.PESEL</td>
+                <td>@user.Email</td>
+                @*<td>@string.Join(" , ", user.Roles.ToList())</td>*@
+                <td>
+                    <a class="btn btn-primary" asp-controller="Users" asp-action="ManageRoles" asp-route-userId="@user.Id">Zmień role</a>
+                    <a class="btn btn-outline-primary" asp-controller="Users" asp-action="Edit" asp-route-userId="@user.Id">Edytuj</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@user.Id">Usuń</a>
+
+                </td>
+            </tr>
+            }
+        }
+        @foreach (var user in Model)
+            @if (User.IsInRole("Recepcja"))
+            {
+                <tr>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.UserName</td>
+                    <td>@user.PESEL</td>
+                    <td>@user.Email</td>
+                    @*<td>@string.Join(" , ", user.Roles.ToList())</td>*@
+                    <td>
+                        
+                        <a class="btn btn-outline-primary" asp-controller="Users" asp-action="Edit" asp-route-userId="@user.Id">Edytuj</a>
+
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+</table>
